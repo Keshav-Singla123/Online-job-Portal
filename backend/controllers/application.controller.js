@@ -16,7 +16,7 @@ export const applyJob = async (req, res) => {
 
         if (existingApplication) {
             return res.status(400).json({
-                message: "You have already applied for this jobs",
+                message: "You have already applied for this job.",
                 success: false
             });
         }
@@ -42,9 +42,13 @@ export const applyJob = async (req, res) => {
             success:true
         })
     } catch (error) {
-        console.log(error);
+        console.error("Apply job error:", error);
+        return res.status(500).json({
+            message: "Server error while applying for job.",
+            success: false
+        });
     }
-};
+}
 export const getAppliedJobs = async (req,res) => {
     try {
         const userId = req.id;
@@ -56,18 +60,16 @@ export const getAppliedJobs = async (req,res) => {
                 options:{sort:{createdAt:-1}},
             }
         });
-        if(!application){
-            return res.status(404).json({
-                message:"No Applications",
-                success:false
-            })
-        };
         return res.status(200).json({
             application,
             success:true
         })
     } catch (error) {
-        console.log(error);
+        console.error("Get applied jobs error:", error);
+        return res.status(500).json({
+            message: "Server error while fetching applied jobs.",
+            success: false
+        });
     }
 }
 // admin dekhega kitna user ne apply kiya hai
@@ -89,10 +91,14 @@ export const getApplicants = async (req,res) => {
         };
         return res.status(200).json({
             job, 
-            succees:true
+            success:true
         });
     } catch (error) {
-        console.log(error);
+        console.error("Get applicants error:", error);
+        return res.status(500).json({
+            message: "Server error while fetching applicants.",
+            success: false
+        });
     }
 }
 export const updateStatus = async (req,res) => {
@@ -101,7 +107,7 @@ export const updateStatus = async (req,res) => {
         const applicationId = req.params.id;
         if(!status){
             return res.status(400).json({
-                message:'status is required',
+                message:'Status is required.',
                 success:false
             })
         };
@@ -125,6 +131,10 @@ export const updateStatus = async (req,res) => {
         });
 
     } catch (error) {
-        console.log(error);
+        console.error("Update status error:", error);
+        return res.status(500).json({
+            message: "Server error while updating status.",
+            success: false
+        });
     }
 }

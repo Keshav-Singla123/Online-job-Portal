@@ -10,6 +10,14 @@ import applicationRoute from "./routes/application.route.js";
 
 dotenv.config({});
 
+// Validate required environment variables
+const requiredEnvVars = ['MONGO_URI', 'SECRET_KEY'];
+const missingEnvVars = requiredEnvVars.filter(varName => !process.env[varName]);
+if (missingEnvVars.length > 0) {
+    console.error(`Missing environment variables: ${missingEnvVars.join(', ')}`);
+    process.exit(1);
+}
+
 const app = express();
 
 // middleware
@@ -17,7 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
 const corsOptions = {
-    origin:'http://localhost:5173',
+    origin: process.env.FRONTEND_URL || 'http://localhost:5173',
     credentials:true
 }
 

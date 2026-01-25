@@ -29,7 +29,8 @@ const CompanyCreate = () => {
                 navigate(`/admin/companies/${companyId}`);
             }
         } catch (error) {
-            console.log(error);
+            const message = error.response?.data?.message || "Failed to create company.";
+            toast.error(message);
         }
     }
     return (

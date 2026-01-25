@@ -15,11 +15,11 @@ const useGetAllJobs = () => {
                     dispatch(setAllJobs(res.data.jobs));
                 }
             } catch (error) {
-                console.log(error);
+                // Handle error silently
             }
         }
         fetchAllJobs();
-    },[])
+    },[searchedQuery, dispatch])
 }
 
 export default useGetAllJobs

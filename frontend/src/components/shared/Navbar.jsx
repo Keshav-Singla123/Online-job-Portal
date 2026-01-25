@@ -24,8 +24,8 @@ const Navbar = () => {
                 toast.success(res.data.message);
             }
         } catch (error) {
-            console.log(error);
-            toast.error(error.response.data.message);
+            const message = error.response?.data?.message || "Logout failed. Please try again.";
+            toast.error(message);
         }
     }
     return (

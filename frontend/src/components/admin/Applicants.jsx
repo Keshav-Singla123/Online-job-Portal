@@ -18,11 +18,11 @@ const Applicants = () => {
                 const res = await axios.get(`${APPLICATION_API_END_POINT}/${params.id}/applicants`, { withCredentials: true });
                 dispatch(setAllApplicants(res.data.job));
             } catch (error) {
-                console.log(error);
+                // Handle error silently
             }
         }
         fetchAllApplicants();
-    }, []);
+    }, [params.id, dispatch]);
     return (
         <div>
             <Navbar />

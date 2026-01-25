@@ -8,14 +8,14 @@ export const postJob = async (req, res) => {
 
         if (!title || !description || !requirements || !salary || !location || !jobType || !experience || !position || !companyId) {
             return res.status(400).json({
-                message: "Somethin is missing.",
+                message: "All fields are required.",
                 success: false
             })
         };
         const job = await Job.create({
             title,
             description,
-            requirements: requirements.split(","),
+            requirements: requirements.split(",").map(r => r.trim()).filter(r => r),
             salary: Number(salary),
             location,
             jobType,
@@ -30,7 +30,11 @@ export const postJob = async (req, res) => {
             success: true
         });
     } catch (error) {
-        console.log(error);
+        console.error("Post job error:", error);
+        return res.status(500).json({
+            message: "Server error while creating job.",
+            success: false
+        });
     }
 }
 // student k liye
@@ -46,18 +50,16 @@ export const getAllJobs = async (req, res) => {
         const jobs = await Job.find(query).populate({
             path: "company"
         }).sort({ createdAt: -1 });
-        if (!jobs) {
-            return res.status(404).json({
-                message: "Jobs not found.",
-                success: false
-            })
-        };
         return res.status(200).json({
             jobs,
             success: true
         })
     } catch (error) {
-        console.log(error);
+        console.error("Get all jobs error:", error);
+        return res.status(500).json({
+            message: "Server error while fetching jobs.",
+            success: false
+        });
     }
 }
 // student
@@ -69,13 +71,17 @@ export const getJobById = async (req, res) => {
         });
         if (!job) {
             return res.status(404).json({
-                message: "Jobs not found.",
+                message: "Job not found.",
                 success: false
             })
         };
         return res.status(200).json({ job, success: true });
     } catch (error) {
-        console.log(error);
+        console.error("Get job by ID error:", error);
+        return res.status(500).json({
+            message: "Server error while fetching job.",
+            success: false
+        });
     }
 }
 // admin kitne job create kra hai abhi tk
@@ -83,20 +89,17 @@ export const getAdminJobs = async (req, res) => {
     try {
         const adminId = req.id;
         const jobs = await Job.find({ created_by: adminId }).populate({
-            path:'company',
-            createdAt:-1
-        });
-        if (!jobs) {
-            return res.status(404).json({
-                message: "Jobs not found.",
-                success: false
-            })
-        };
+            path:'company'
+        }).sort({ createdAt: -1 });
         return res.status(200).json({
             jobs,
             success: true
         })
     } catch (error) {
-        console.log(error);
+        console.error("Get admin jobs error:", error);
+        return res.status(500).json({
+            message: "Server error while fetching admin jobs.",
+            success: false
+        });
     }
 }

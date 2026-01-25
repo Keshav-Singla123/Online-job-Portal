@@ -30,8 +30,8 @@ const JobDescription = () => {
 
             }
         } catch (error) {
-            console.log(error);
-            toast.error(error.response.data.message);
+            const message = error.response?.data?.message || "Failed to apply for job.";
+            toast.error(message);
         }
     }
 
@@ -44,7 +44,7 @@ const JobDescription = () => {
                     setIsApplied(res.data.job.applications.some(application=>application.applicant === user?._id)) // Ensure the state is in sync with fetched data
                 }
             } catch (error) {
-                console.log(error);
+                // Handle error silently
             }
         }
         fetchSingleJob(); 
