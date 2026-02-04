@@ -4,9 +4,16 @@ import { Button } from "./ui/button";
 import { MapPin, DollarSign, Briefcase, Bookmark } from "lucide-react";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const LatestJobCards = ({ job }) => {
   const navigate = useNavigate();
+  const { user } = useSelector((store) => store.auth);
+  const isApplied = user
+    ? job?.applications?.some(
+        (application) => application.applicant === user?._id,
+      )
+    : false;
 
   const daysAgoFunction = (mongodbTime) => {
     const createdAt = new Date(mongodbTime);
@@ -119,8 +126,11 @@ const LatestJobCards = ({ job }) => {
         >
           View Details
         </Button>
-        <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-          Apply Now
+        <Button
+          disabled={isApplied}
+          className={`${isApplied ? "bg-gray-600 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"} text-white`}
+        >
+          {isApplied ? "Already Applied" : "Apply Now"}
         </Button>
       </div>
     </div>

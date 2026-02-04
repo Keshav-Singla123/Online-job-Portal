@@ -16,6 +16,14 @@ import Applicants from "./components/admin/Applicants";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
 import ErrorBoundary from "./components/ErrorBoundary";
 
+/*React by default is a single-page app.
+It doesn’t understand URLs like /login or /jobs.
+So we use React Router to map URLs to components.*/
+
+/*createBrowserRouter is used to define all application routes in one place.
+It creates a routing configuration where each path is mapped to a React component.
+When the browser URL changes, React Router automatically renders the matching component without reloading the page.*/
+
 const appRouter = createBrowserRouter([
   {
     path: "/",
@@ -45,7 +53,8 @@ const appRouter = createBrowserRouter([
     path: "/profile",
     element: <Profile />,
   },
-  // admin ke liye yha se start hoga
+  
+  
   {
     path: "/admin/companies",
     element: (
@@ -104,3 +113,9 @@ function App() {
 }
 
 export default App;
+
+/*User enters a URL
+RouterProvider listens to URL
+createBrowserRouter matches the path
+Corresponding component renders
+Page changes without reload*/

@@ -25,6 +25,7 @@ const Login = () => {
     const changeEventHandler = (e) => {
         setInput({ ...input, [e.target.name]: e.target.value });
     }
+/* submitHandler handles the login process. It prevents page reload, enables loading state, sends credentials to backend using axios, stores the authenticated user in Redux on success, redirects to home, and shows toast messages. Errors are handled in catch block, and loading is stopped in finally to ensure proper UI update. */
 
     const submitHandler = async (e) => {
         e.preventDefault();
