@@ -9,6 +9,7 @@ This platform is designed to simplify the recruitment process for both candidate
 ## ✨ Features
 
 ### 👨‍💼 For Job Seekers
+
 - User registration and login
 - Create and update profile
 - Upload resume
@@ -18,6 +19,7 @@ This platform is designed to simplify the recruitment process for both candidate
 - Track applications
 
 ### 🏢 For Recruiters
+
 - Recruiter registration and login
 - Post new jobs
 - Update or delete job posts
@@ -25,6 +27,7 @@ This platform is designed to simplify the recruitment process for both candidate
 - Manage job listings
 
 ### 🔐 Core Functionalities
+
 - Role-based authentication
 - Secure login system
 - Responsive UI design
@@ -34,18 +37,22 @@ This platform is designed to simplify the recruitment process for both candidate
 ## 🛠️ Tech Stack
 
 ### Frontend
+
 - React.js
 - JavaScript
 - Tailwind CSS / Bootstrap
 
 ### Backend
+
 - Node.js
 - Express.js
 
 ### Database
+
 - MongoDB
 
 ### Tools
+
 - Git
 - GitHub
 - JWT Authentication
@@ -55,23 +62,39 @@ This platform is designed to simplify the recruitment process for both candidate
 ```bash
 client/   # Frontend
 server/   # Backend
-⚙️ Installation
-Clone Repository
+```
+
+## ⚙️ Installation
+
+### Clone Repository
+
+```bash
 git clone https://github.com/your-username/your-repository-name.git
-Install Dependencies
+```
+
+### Install Dependencies
+
+```bash
 cd client
 npm install
 
 cd ../server
 npm install
-Environment Variables
+```
 
-Create a .env file inside server folder:
+### Environment Variables
 
+Create a `.env` file inside server folder:
+
+```env
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_secret_key
-Run Project
+```
+
+### Run Project
+
+```bash
 # Backend
 cd server
 npm start
@@ -79,16 +102,20 @@ npm start
 # Frontend
 cd client
 npm start
-🚀 Future Improvements
-AI resume screening
-Email notifications
-Interview scheduling
-Admin dashboard
-Saved jobs feature
-📖 Learning Outcome
+```
+
+## 🚀 Future Improvements
+
+- AI resume screening
+- Email notifications
+- Interview scheduling
+- Admin dashboard
+- Saved jobs feature
+
+## 📖 Learning Outcome
 
 This project helped me gain hands-on experience in full-stack development, authentication, APIs, database management, routing, and building real-world responsive applications.
 
-👨‍💻 Author
+## 👨‍💻 Author
 
-Keshav Singla
+**Keshav Singla**
