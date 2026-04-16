@@ -55,3 +55,40 @@ This platform is designed to simplify the recruitment process for both candidate
 ```bash
 client/   # Frontend
 server/   # Backend
+⚙️ Installation
+Clone Repository
+git clone https://github.com/your-username/your-repository-name.git
+Install Dependencies
+cd client
+npm install
+
+cd ../server
+npm install
+Environment Variables
+
+Create a .env file inside server folder:
+
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+Run Project
+# Backend
+cd server
+npm start
+
+# Frontend
+cd client
+npm start
+🚀 Future Improvements
+AI resume screening
+Email notifications
+Interview scheduling
+Admin dashboard
+Saved jobs feature
+📖 Learning Outcome
+
+This project helped me gain hands-on experience in full-stack development, authentication, APIs, database management, routing, and building real-world responsive applications.
+
+👨‍💻 Author
+
+Keshav Singla
