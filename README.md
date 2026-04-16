@@ -60,8 +60,8 @@ This platform is designed to simplify the recruitment process for both candidate
 ## 📂 Project Structure
 
 ```bash
-client/   # Frontend
-server/   # Backend
+frontend/   # Frontend
+backend/   # Backend
 ```
 
 ## ⚙️ Installation
@@ -75,10 +75,10 @@ git clone https://github.com/your-username/your-repository-name.git
 ### Install Dependencies
 
 ```bash
-cd client
+cd frontend
 npm install
 
-cd ../server
+cd ../backend
 npm install
 ```
 
@@ -96,7 +96,7 @@ JWT_SECRET=your_secret_key
 
 ```bash
 # Backend
-cd server
+cd backend
 npm start
 
 # Frontend
@@ -104,13 +104,6 @@ cd client
 npm start
 ```
 
-## 🚀 Future Improvements
-
-- AI resume screening
-- Email notifications
-- Interview scheduling
-- Admin dashboard
-- Saved jobs feature
 
 ## 📖 Learning Outcome
 
