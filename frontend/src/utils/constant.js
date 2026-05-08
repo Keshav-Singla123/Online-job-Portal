@@ -1,4 +1,15 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api/v1";
+const normalizeApiBaseUrl = (value) => {
+	if (!value) {
+		return "http://localhost:8000/api/v1";
+	}
+
+	const trimmed = value.replace(/\/+$/, "");
+	return trimmed.endsWith("/api/v1") ? trimmed : `${trimmed}/api/v1`;
+};
+
+const API_BASE_URL = normalizeApiBaseUrl(
+	import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api/v1"
+);
 
 export const USER_API_END_POINT = `${API_BASE_URL}/user`;
 export const JOB_API_END_POINT = `${API_BASE_URL}/job`;
