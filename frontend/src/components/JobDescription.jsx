@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { APPLICATION_API_END_POINT, JOB_API_END_POINT } from "@/utils/constant";
-import { setSingleJob } from "@/redux/jobSlice";
+import { setSingleJob, setAllJobs } from "@/redux/jobSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
 
@@ -21,6 +21,7 @@ const JobDescription = () => {
   const params = useParams();
   const jobId = params.id;
   const dispatch = useDispatch();
+  const { allJobs } = useSelector((store) => store.job);
 
   const applyJobHandler = async () => {
     try {
@@ -36,6 +37,17 @@ const JobDescription = () => {
           applications: [...singleJob.applications, { applicant: user?._id }],
         };
         dispatch(setSingleJob(updatedSingleJob)); // helps us to real time UI update
+        // Also update the global jobs list so Jobs page reflects applied status
+        try {
+          if (allJobs && allJobs.length > 0) {
+            const updatedAll = allJobs.map((j) =>
+              j._id === updatedSingleJob._id ? updatedSingleJob : j,
+            );
+            dispatch(setAllJobs(updatedAll));
+          }
+        } catch (e) {
+          // ignore
+        }
         toast.success(res.data.message);
       }
     } catch (error) {
