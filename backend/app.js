@@ -19,14 +19,64 @@ const normalizeOrigin = (value) => {
   return value.replace(/\/+$/, "");
 };
 
+const getAllowedOrigins = () => {
+  const configured = process.env.FRONTEND_URL || "http://localhost:5173";
+  return configured
+    .split(",")
+    .map((origin) => normalizeOrigin(origin.trim()))
+    .filter(Boolean);
+};
+
+const buildPreviewMatcher = (origin) => {
+  try {
+    const { hostname } = new URL(origin);
+    if (!hostname.endsWith(".vercel.app")) {
+      return null;
+    }
+
+    const projectPrefix = hostname.replace(".vercel.app", "");
+    return (candidateOrigin) => {
+      try {
+        const { hostname: candidateHost } = new URL(candidateOrigin);
+        return (
+          candidateHost === `${projectPrefix}.vercel.app` ||
+          (candidateHost.startsWith(`${projectPrefix}-`) &&
+            candidateHost.endsWith(".vercel.app"))
+        );
+      } catch {
+        return false;
+      }
+    };
+  } catch {
+    return null;
+  }
+};
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-const allowedOrigin = normalizeOrigin(process.env.FRONTEND_URL) || "http://localhost:5173";
+const allowedOrigins = getAllowedOrigins();
+const previewMatchers = allowedOrigins
+  .map((origin) => buildPreviewMatcher(origin))
+  .filter(Boolean);
 
 const corsOptions = {
-  origin: allowedOrigin,
+  origin: (origin, callback) => {
+    if (!origin) {
+      return callback(null, true);
+    }
+
+    const normalized = normalizeOrigin(origin);
+    const isExplicitAllowed = allowedOrigins.includes(normalized);
+    const isPreviewAllowed = previewMatchers.some((match) => match(normalized));
+
+    if (isExplicitAllowed || isPreviewAllowed) {
+      return callback(null, true);
+    }
+
+    return callback(new Error("Not allowed by CORS"));
+  },
   credentials: true,
 };
 
