@@ -4,6 +4,11 @@ A production-style MERN job platform where candidates discover opportunities and
 
 This project demonstrates end-to-end product thinking: authentication, role-based access, admin workflows, API design, state management, and deployment-ready architecture.
 
+## Live Demo
+
+- Frontend: https://your-frontend.vercel.app
+- Backend API: https://your-backend.vercel.app/api/v1
+
 ## Why This Project Stands Out
 
 - Real business use-case: complete hiring pipeline from job posting to application tracking.
@@ -64,32 +69,133 @@ This project demonstrates end-to-end product thinking: authentication, role-base
 
 ## Project Structure
 
+<details>
+<summary>Click to expand full folder structure</summary>
+
 ```text
 .
+|- README.md
 |- backend/
+|  |- .env.example
+|  |- app.js
+|  |- index.js
+|  |- package.json
+|  |- package-lock.json
+|  |- seed.js
+|  |- server.js
+|  |- vercel.json
+|  |- api/
+|  |  |- index.js
 |  |- controllers/
+|  |  |- application.controller.js
+|  |  |- company.controller.js
+|  |  |- job.controller.js
+|  |  |- user.controller.js
 |  |- middlewares/
+|  |  |- isAuthenticated.js
+|  |  |- mutler.js
+|  |  |- rateLimit.js
 |  |- models/
+|  |  |- application.model.js
+|  |  |- company.model.js
+|  |  |- job.model.js
+|  |  |- user.model.js
 |  |- routes/
+|  |  |- application.route.js
+|  |  |- company.route.js
+|  |  |- job.route.js
+|  |  |- user.route.js
 |  |- utils/
-|  |- api/               # Vercel serverless entry
-|  |- app.js             # Express app
-|  |- index.js           # Local server entry
-|  |- vercel.json
-|
+|     |- db.js
 |- frontend/
-|  |- src/
-|  |- public/
+|  |- .env.example
+|  |- components.json
+|  |- index.html
+|  |- jsconfig.json
+|  |- package.json
+|  |- package-lock.json
+|  |- postcss.config.js
+|  |- tailwind.config.js
+|  |- vite.config.js
 |  |- vercel.json
+|  |- public/
+|  |- src/
+|     |- App.css
+|     |- App.jsx
+|     |- index.css
+|     |- main.jsx
+|     |- components/
+|     |  |- AppliedJobTable.jsx
+|     |  |- Browse.jsx
+|     |  |- CategoryCarousel.jsx
+|     |  |- ErrorBoundary.jsx
+|     |  |- FilterCard.jsx
+|     |  |- HeroSection.jsx
+|     |  |- Home.jsx
+|     |  |- Job.jsx
+|     |  |- JobDescription.jsx
+|     |  |- Jobs.jsx
+|     |  |- LatestJobCards.jsx
+|     |  |- LatestJobs.jsx
+|     |  |- Profile.jsx
+|     |  |- UpdateProfileDialog.jsx
+|     |  |- admin/
+|     |  |  |- AdminJobs.jsx
+|     |  |  |- AdminJobsTable.jsx
+|     |  |  |- Applicants.jsx
+|     |  |  |- ApplicantsTable.jsx
+|     |  |  |- Companies.jsx
+|     |  |  |- CompaniesTable.jsx
+|     |  |  |- CompanyCreate.jsx
+|     |  |  |- CompanySetup.jsx
+|     |  |  |- PostJob.jsx
+|     |  |  |- ProtectedRoute.jsx
+|     |  |- auth/
+|     |  |  |- Login.jsx
+|     |  |  |- Signup.jsx
+|     |  |- shared/
+|     |  |  |- Footer.jsx
+|     |  |  |- Navbar.jsx
+|     |  |- ui/
+|     |     |- avatar.jsx
+|     |     |- badge.jsx
+|     |     |- button.jsx
+|     |     |- carousel.jsx
+|     |     |- dialog.jsx
+|     |     |- input.jsx
+|     |     |- label.jsx
+|     |     |- popover.jsx
+|     |     |- radio-group.jsx
+|     |     |- select.jsx
+|     |     |- sonner.jsx
+|     |     |- table.jsx
+|     |- hooks/
+|     |  |- useGetAllAdminJobs.jsx
+|     |  |- useGetAllCompanies.jsx
+|     |  |- useGetAllJobs.jsx
+|     |  |- useGetAppliedJobs.jsx
+|     |  |- useGetCompanyById.jsx
+|     |- lib/
+|     |  |- utils.js
+|     |- redux/
+|     |  |- applicationSlice.js
+|     |  |- authSlice.js
+|     |  |- companySlice.js
+|     |  |- jobSlice.js
+|     |  |- store.js
+|     |- utils/
+|        |- constant.js
 ```
+
+</details>
 
 ## Local Setup
 
 ### 1) Clone and install
 
 ```bash
-git clone https://github.com/<your-username>/<your-repo>.git
-cd <your-repo>
+git clone https://github.com/Keshav-Singla123/Online-job-Portal.git
+cd Online-job-Portal
 
 cd backend
 npm install
