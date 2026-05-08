@@ -1,0 +1,62 @@
+import React, { useEffect } from "react";
+import Navbar from "./shared/Navbar";
+import Job from "./Job";
+import { useDispatch, useSelector } from "react-redux";
+import { setSearchedQuery } from "@/redux/jobSlice";
+import useGetAllJobs from "@/hooks/useGetAllJobs";
+import { Button } from "./ui/button";
+
+// const randomJobs = [1, 2,45];
+
+const Browse = () => {
+  useGetAllJobs();
+  const { allJobs, searchedQuery } = useSelector((store) => store.job);
+  const dispatch = useDispatch();
+
+  // Filter jobs based on searchedQuery - only filter if search query exists
+  const filteredJobs =
+    searchedQuery && searchedQuery.trim() !== ""
+      ? allJobs.filter(
+          (job) =>
+            job.title.toLowerCase().includes(searchedQuery.toLowerCase()) ||
+            job.description.toLowerCase().includes(searchedQuery.toLowerCase()),
+        )
+      : allJobs;
+
+  useEffect(() => {
+    return () => {
+      // Don't clear search query on unmount - let it persist
+    };
+  }, []);
+  return (
+    <div>
+      <Navbar />
+      <div className="max-w-7xl mx-auto my-10">
+        <div className="flex items-center justify-between my-10 gap-4">
+          <h1 className="font-bold text-xl">
+            Search Results ({filteredJobs.length})
+          </h1>
+          {searchedQuery && searchedQuery.trim() !== "" && (
+            <Button
+              variant="outline"
+              onClick={() => dispatch(setSearchedQuery(""))}
+            >
+              Clear Filter
+            </Button>
+          )}
+        </div>
+        <div className="grid grid-cols-3 gap-4">
+          {filteredJobs.length > 0 ? (
+            filteredJobs.map((job) => {
+              return <Job key={job._id} job={job} />;
+            })
+          ) : (
+            <span>No jobs found matching your search</span>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Browse;
