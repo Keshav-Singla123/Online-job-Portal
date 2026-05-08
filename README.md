@@ -270,4 +270,4 @@ If you are evaluating this repository for hiring:
 
 Keshav Singla
 
-If you want, I can also generate a matching LinkedIn project description and resume bullet points from this codebase.
+
