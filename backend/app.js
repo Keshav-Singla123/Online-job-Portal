@@ -20,7 +20,10 @@ const normalizeOrigin = (value) => {
 };
 
 const getAllowedOrigins = () => {
-  const configured = process.env.FRONTEND_URL || "http://localhost:5173";
+  const configured =
+    process.env.CORS_ORIGINS ||
+    process.env.FRONTEND_URL ||
+    "http://localhost:5173";
   return configured
     .split(",")
     .map((origin) => normalizeOrigin(origin.trim()))
