@@ -4,11 +4,6 @@ A production-style MERN job platform where candidates discover opportunities and
 
 This project demonstrates end-to-end product thinking: authentication, role-based access, admin workflows, API design, state management, and deployment-ready architecture.
 
-## Live Demo
-
-- Frontend: https://your-frontend.vercel.app
-- Backend API: https://your-backend.vercel.app/api/v1
-
 ## Why This Project Stands Out
 
 - Real business use-case: complete hiring pipeline from job posting to application tracking.
@@ -248,27 +243,6 @@ npm run dev
 ```
 
 Open: `http://localhost:5173`
-
-## Deployment (Vercel)
-
-Deploy as 2 projects.
-
-### Backend Deployment
-
-- Create Vercel project from `backend` directory.
-- Add env vars in Vercel:
-  - `MONGO_URI`
-  - `SECRET_KEY`
-  - `NODE_ENV=production`
-  - `FRONTEND_URL=https://your-frontend.vercel.app`
-
-### Frontend Deployment
-
-- Create Vercel project from `frontend` directory.
-- Build command: `npm run build`
-- Output directory: `dist`
-- Add env var:
-  - `VITE_API_BASE_URL=https://your-backend.vercel.app/api/v1`
 
 ## Demo Credentials (After Seeding)
 
