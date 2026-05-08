@@ -4,7 +4,11 @@ import { Bookmark, MapPin, DollarSign, Briefcase } from "lucide-react";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import { Badge } from "./ui/badge";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import { APPLICATION_API_END_POINT } from "@/utils/constant";
+import { setAllJobs } from "@/redux/jobSlice";
+import { toast } from "sonner";
 
 const Job = ({ job }) => {
   const navigate = useNavigate();
@@ -14,6 +18,8 @@ const Job = ({ job }) => {
         (application) => application.applicant === user?._id,
       )
     : false;
+  const dispatch = useDispatch();
+  const { allJobs } = useSelector((store) => store.job);
 
   const daysAgoFunction = (mongodbTime) => {
     const createdAt = new Date(mongodbTime);
@@ -128,6 +134,28 @@ const Job = ({ job }) => {
         </Button>
         <Button
           disabled={isApplied}
+          onClick={async () => {
+            try {
+              const res = await axios.get(`${APPLICATION_API_END_POINT}/apply/${job?._id}`, {
+                withCredentials: true,
+              });
+              if (res.data.success) {
+                // update local job in global list
+                const updatedJob = {
+                  ...job,
+                  applications: [...(job.applications || []), { applicant: user?._id }],
+                };
+                if (allJobs && allJobs.length > 0) {
+                  const updatedAll = allJobs.map((j) => (j._id === updatedJob._id ? updatedJob : j));
+                  dispatch(setAllJobs(updatedAll));
+                }
+                toast.success(res.data.message);
+              }
+            } catch (error) {
+              const message = error.response?.data?.message || "Failed to apply for job.";
+              toast.error(message);
+            }
+          }}
           className={`${isApplied ? "bg-gray-600 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"} text-white`}
         >
           {isApplied ? "Already Applied" : "Apply Now"}
